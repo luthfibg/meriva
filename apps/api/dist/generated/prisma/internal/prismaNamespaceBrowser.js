@@ -1,0 +1,80 @@
+import * as runtime from "@prisma/client/runtime/index-browser";
+export const Decimal = runtime.Decimal;
+export const NullTypes = {
+    DbNull: runtime.NullTypes.DbNull,
+    JsonNull: runtime.NullTypes.JsonNull,
+    AnyNull: runtime.NullTypes.AnyNull,
+};
+export const DbNull = runtime.DbNull;
+export const JsonNull = runtime.JsonNull;
+export const AnyNull = runtime.AnyNull;
+export const ModelName = {
+    Organization: 'Organization',
+    User: 'User',
+    Event: 'Event',
+    Guest: 'Guest',
+    Rsvp: 'Rsvp'
+};
+export const TransactionIsolationLevel = runtime.makeStrictEnum({
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
+    Serializable: 'Serializable'
+});
+export const OrganizationScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    slug: 'slug',
+    createdAt: 'createdAt'
+};
+export const UserScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    email: 'email',
+    passwordHash: 'passwordHash',
+    name: 'name',
+    role: 'role',
+    createdAt: 'createdAt'
+};
+export const EventScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    title: 'title',
+    slug: 'slug',
+    startsAt: 'startsAt',
+    venue: 'venue',
+    description: 'description',
+    createdAt: 'createdAt'
+};
+export const GuestScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    eventId: 'eventId',
+    name: 'name',
+    phone: 'phone',
+    category: 'category',
+    maxPax: 'maxPax',
+    token: 'token',
+    createdAt: 'createdAt'
+};
+export const RsvpScalarFieldEnum = {
+    id: 'id',
+    guestId: 'guestId',
+    status: 'status',
+    paxCount: 'paxCount',
+    message: 'message',
+    respondedAt: 'respondedAt'
+};
+export const SortOrder = {
+    asc: 'asc',
+    desc: 'desc'
+};
+export const QueryMode = {
+    default: 'default',
+    insensitive: 'insensitive'
+};
+export const NullsOrder = {
+    first: 'first',
+    last: 'last'
+};
+//# sourceMappingURL=prismaNamespaceBrowser.js.map

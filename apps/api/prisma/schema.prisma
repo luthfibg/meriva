@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  OWNER
+  STAFF
+}
+
+enum RsvpStatus {
+  ATTENDING
+  DECLINED
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  users  User[]
+  events Event[]
+  guests Guest[]
+}
+
+model User {
+  id             String   @id @default(cuid())
+  organizationId String
+  email          String   @unique
+  passwordHash   String
+  name           String
+  role           UserRole @default(OWNER)
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
+}
+
+model Event {
+  id             String   @id @default(cuid())
+  organizationId String
+  title          String
+  slug           String
+  startsAt       DateTime
+  venue          String?
+  description    String?
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  guests       Guest[]
+
+  @@unique([organizationId, slug])
+  @@index([organizationId])
+}
+
+model Guest {
+  id             String   @id @default(cuid())
+  organizationId String
+  eventId        String
+  name           String
+  phone          String?
+  category       String?
+  maxPax         Int      @default(1)
+  token          String   @unique @default(cuid())
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id])
+  event        Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  rsvp         Rsvp?
+
+  @@index([organizationId])
+  @@index([eventId])
+}
+
+model Rsvp {
+  id          String     @id @default(cuid())
+  guestId     String     @unique
+  status      RsvpStatus
+  paxCount    Int        @default(1)
+  message     String?
+  respondedAt DateTime   @default(now())
+
+  guest Guest @relation(fields: [guestId], references: [id], onDelete: Cascade)
+}

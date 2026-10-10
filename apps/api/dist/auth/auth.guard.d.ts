@@ -1,7 +1,9 @@
 import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from '../prisma/prisma.service.js';
 export declare class AuthGuard implements CanActivate {
     private readonly jwt;
-    constructor(jwt: JwtService);
+    private readonly prisma;
+    constructor(jwt: JwtService, prisma: PrismaService);
     canActivate(context: ExecutionContext): Promise<boolean>;
 }

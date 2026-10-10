@@ -5,6 +5,7 @@ import { AppService } from './app.service.js';
 import { ConfigModule } from '@nestjs/config'
 import { PrismaModule } from './prisma/prisma.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { EventsModule } from './events/events.module.js';
 import { config as loadEnv } from 'dotenv';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -34,6 +35,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     // PrismaModule is a global module that provides the PrismaService
     PrismaModule,
     AuthModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

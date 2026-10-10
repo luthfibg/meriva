@@ -9,28 +9,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable, UnauthorizedException, } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from '../prisma/prisma.service.js';
 let AuthGuard = class AuthGuard {
     jwt;
-    constructor(jwt) {
+    prisma;
+    constructor(jwt, prisma) {
         this.jwt = jwt;
+        this.prisma = prisma;
     }
     async canActivate(context) {
         const req = context.switchToHttp().getRequest();
         const [type, token] = req.headers.authorization?.split(' ') ?? [];
         if (type !== 'Bearer' || !token)
             throw new UnauthorizedException();
+        let payload;
         try {
-            req.user = await this.jwt.verifyAsync(token);
+            payload = await this.jwt.verifyAsync(token);
         }
         catch {
             throw new UnauthorizedException();
         }
+        const membership = await this.prisma.organizationMember.findUnique({
+            where: {
+                organizationId_userId: {
+                    organizationId: payload.orgId,
+                    userId: payload.sub,
+                },
+            },
+            select: { role: true },
+        });
+        if (!membership)
+            throw new UnauthorizedException();
+        req.user = { ...payload, role: membership.role };
         return true;
     }
 };
 AuthGuard = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [JwtService])
+    __metadata("design:paramtypes", [JwtService,
+        PrismaService])
 ], AuthGuard);
 export { AuthGuard };
 //# sourceMappingURL=auth.guard.js.map

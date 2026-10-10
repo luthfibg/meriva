@@ -28,6 +28,11 @@ export type Organization = Prisma.OrganizationModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model OrganizationMember
+ * 
+ */
+export type OrganizationMember = Prisma.OrganizationMemberModel
+/**
  * Model Event
  * 
  */
@@ -38,7 +43,22 @@ export type Event = Prisma.EventModel
  */
 export type Guest = Prisma.GuestModel
 /**
+ * Model GuestGroup
+ * 
+ */
+export type GuestGroup = Prisma.GuestGroupModel
+/**
+ * Model Invitation
+ * 
+ */
+export type Invitation = Prisma.InvitationModel
+/**
  * Model Rsvp
  * 
  */
 export type Rsvp = Prisma.RsvpModel
+/**
+ * Model CheckIn
+ * 
+ */
+export type CheckIn = Prisma.CheckInModel

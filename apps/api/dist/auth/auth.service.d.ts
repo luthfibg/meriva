@@ -28,15 +28,15 @@ export declare class AuthService {
             organizationId: string;
         };
     }>;
-    me(userId: string): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        role: import("../generated/prisma/enums.js").UserRole;
+    me(userId: string, orgId: string): Promise<{
+        role: import("../generated/prisma/enums.js").MemberRole;
         organization: {
             id: string;
             name: string;
             slug: string;
         };
+        id: string;
+        name: string;
+        email: string;
     }>;
 }

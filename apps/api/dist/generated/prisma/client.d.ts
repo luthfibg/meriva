@@ -8,6 +8,10 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma };
 export type Organization = Prisma.OrganizationModel;
 export type User = Prisma.UserModel;
+export type OrganizationMember = Prisma.OrganizationMemberModel;
 export type Event = Prisma.EventModel;
 export type Guest = Prisma.GuestModel;
+export type GuestGroup = Prisma.GuestGroupModel;
+export type Invitation = Prisma.InvitationModel;
 export type Rsvp = Prisma.RsvpModel;
+export type CheckIn = Prisma.CheckInModel;

@@ -30,6 +30,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('me')
   me(@Req() req: any) {
-    return this.auth.me(req.user.sub);
+    return this.auth.me(req.user.sub, req.user.orgId);
   }
 }

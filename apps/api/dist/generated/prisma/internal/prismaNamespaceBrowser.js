@@ -11,9 +11,13 @@ export const AnyNull = runtime.AnyNull;
 export const ModelName = {
     Organization: 'Organization',
     User: 'User',
+    OrganizationMember: 'OrganizationMember',
     Event: 'Event',
     Guest: 'Guest',
-    Rsvp: 'Rsvp'
+    GuestGroup: 'GuestGroup',
+    Invitation: 'Invitation',
+    Rsvp: 'Rsvp',
+    CheckIn: 'CheckIn'
 };
 export const TransactionIsolationLevel = runtime.makeStrictEnum({
     ReadUncommitted: 'ReadUncommitted',
@@ -25,14 +29,21 @@ export const OrganizationScalarFieldEnum = {
     id: 'id',
     name: 'name',
     slug: 'slug',
+    logoUrl: 'logoUrl',
+    status: 'status',
     createdAt: 'createdAt'
 };
 export const UserScalarFieldEnum = {
     id: 'id',
-    organizationId: 'organizationId',
     email: 'email',
     passwordHash: 'passwordHash',
     name: 'name',
+    createdAt: 'createdAt'
+};
+export const OrganizationMemberScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    userId: 'userId',
     role: 'role',
     createdAt: 'createdAt'
 };
@@ -41,7 +52,11 @@ export const EventScalarFieldEnum = {
     organizationId: 'organizationId',
     title: 'title',
     slug: 'slug',
+    type: 'type',
+    status: 'status',
     startsAt: 'startsAt',
+    endsAt: 'endsAt',
+    timezone: 'timezone',
     venue: 'venue',
     description: 'description',
     createdAt: 'createdAt'
@@ -49,21 +64,46 @@ export const EventScalarFieldEnum = {
 export const GuestScalarFieldEnum = {
     id: 'id',
     organizationId: 'organizationId',
-    eventId: 'eventId',
     name: 'name',
     phone: 'phone',
-    category: 'category',
-    maxPax: 'maxPax',
+    email: 'email',
+    createdAt: 'createdAt'
+};
+export const GuestGroupScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    eventId: 'eventId',
+    name: 'name',
+    createdAt: 'createdAt'
+};
+export const InvitationScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    eventId: 'eventId',
+    guestId: 'guestId',
+    groupId: 'groupId',
     token: 'token',
+    maxPax: 'maxPax',
+    status: 'status',
+    sentAt: 'sentAt',
+    openedAt: 'openedAt',
     createdAt: 'createdAt'
 };
 export const RsvpScalarFieldEnum = {
     id: 'id',
-    guestId: 'guestId',
+    invitationId: 'invitationId',
     status: 'status',
     paxCount: 'paxCount',
     message: 'message',
     respondedAt: 'respondedAt'
+};
+export const CheckInScalarFieldEnum = {
+    id: 'id',
+    organizationId: 'organizationId',
+    invitationId: 'invitationId',
+    checkedInById: 'checkedInById',
+    paxCount: 'paxCount',
+    checkedInAt: 'checkedInAt'
 };
 export const SortOrder = {
     asc: 'asc',

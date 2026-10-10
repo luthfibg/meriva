@@ -36,13 +36,25 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get user(): Prisma.UserDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    get organizationMember(): Prisma.OrganizationMemberDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
     get event(): Prisma.EventDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
     get guest(): Prisma.GuestDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    get guestGroup(): Prisma.GuestGroupDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get invitation(): Prisma.InvitationDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
     get rsvp(): Prisma.RsvpDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get checkIn(): Prisma.CheckInDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
 }

@@ -7,10 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 export class LoginDto {
     email;
     password;
+    organizationId;
 }
 __decorate([
     IsEmail(),
@@ -20,4 +21,9 @@ __decorate([
     IsString(),
     __metadata("design:type", String)
 ], LoginDto.prototype, "password", void 0);
+__decorate([
+    IsOptional(),
+    IsString(),
+    __metadata("design:type", String)
+], LoginDto.prototype, "organizationId", void 0);
 //# sourceMappingURL=login.dto.js.map

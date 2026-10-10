@@ -27,7 +27,7 @@ let AuthController = class AuthController {
         return this.auth.login(dto);
     }
     me(req) {
-        return this.auth.me(req.user.sub);
+        return this.auth.me(req.user.sub, req.user.orgId);
     }
 };
 __decorate([

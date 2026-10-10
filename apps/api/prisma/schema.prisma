@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -12,9 +10,42 @@ datasource db {
   provider = "postgresql"
 }
 
-enum UserRole {
+// ─────────────────────────────────────────────────────────────
+// Enums
+// ─────────────────────────────────────────────────────────────
+
+enum OrganizationStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum MemberRole {
   OWNER
-  STAFF
+  ADMIN
+  EVENT_MANAGER
+  CHECKIN_STAFF
+  VIEWER
+}
+
+enum EventType {
+  WEDDING
+  BIRTHDAY
+  CORPORATE
+  GATHERING
+  OTHER
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+  COMPLETED
+  CANCELLED
+}
+
+enum InvitationStatus {
+  PENDING
+  SENT
+  OPENED
 }
 
 enum RsvpStatus {
@@ -22,74 +53,174 @@ enum RsvpStatus {
   DECLINED
 }
 
-model Organization {
-  id        String   @id @default(cuid())
-  name      String
-  slug      String   @unique
-  createdAt DateTime @default(now())
+// ─────────────────────────────────────────────────────────────
+// A. User, organisasi, dan akses
+// ─────────────────────────────────────────────────────────────
 
-  users  User[]
-  events Event[]
-  guests Guest[]
+model Organization {
+  id        String             @id @default(cuid())
+  name      String
+  slug      String             @unique
+  logoUrl   String?
+  status    OrganizationStatus @default(ACTIVE)
+  createdAt DateTime           @default(now())
+
+  members     OrganizationMember[]
+  events      Event[]
+  guests      Guest[]
+  guestGroups GuestGroup[]
+  invitations Invitation[]
+  checkIns    CheckIn[]
 }
 
 model User {
-  id             String   @id @default(cuid())
-  organizationId String
-  email          String   @unique
-  passwordHash   String
-  name           String
-  role           UserRole @default(OWNER)
-  createdAt      DateTime @default(now())
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
 
-  organization Organization @relation(fields: [organizationId], references: [id])
-
-  @@index([organizationId])
+  memberships OrganizationMember[]
+  checkIns    CheckIn[]
 }
 
+// Satu user bisa menjadi anggota lebih dari satu organisasi.
+// Role melekat pada keanggotaan, bukan pada user.
+model OrganizationMember {
+  id             String     @id @default(cuid())
+  organizationId String
+  userId         String
+  role           MemberRole @default(VIEWER)
+  createdAt      DateTime   @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([userId])
+}
+
+// ─────────────────────────────────────────────────────────────
+// B. Acara
+// ─────────────────────────────────────────────────────────────
+
 model Event {
-  id             String   @id @default(cuid())
+  id             String      @id @default(cuid())
   organizationId String
   title          String
   slug           String
+  type           EventType   @default(WEDDING)
+  status         EventStatus @default(DRAFT)
   startsAt       DateTime
+  endsAt         DateTime?
+  timezone       String      @default("Asia/Jakarta")
   venue          String?
   description    String?
-  createdAt      DateTime @default(now())
+  createdAt      DateTime    @default(now())
 
-  organization Organization @relation(fields: [organizationId], references: [id])
-  guests       Guest[]
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  guestGroups  GuestGroup[]
+  invitations  Invitation[]
 
   @@unique([organizationId, slug])
   @@index([organizationId])
 }
 
+// ─────────────────────────────────────────────────────────────
+// C. Tamu, undangan personal, RSVP
+// ─────────────────────────────────────────────────────────────
+
+// Profil tamu (level organisasi). Bukan undangan:
+// satu profil bisa diundang ke banyak acara.
 model Guest {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  phone          String?
+  email          String?
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  invitations  Invitation[]
+
+  @@index([organizationId])
+  @@index([organizationId, phone])
+}
+
+// Kategori tamu per acara (Keluarga, VIP, Rekan Kerja, ...)
+model GuestGroup {
   id             String   @id @default(cuid())
   organizationId String
   eventId        String
   name           String
-  phone          String?
-  category       String?
-  maxPax         Int      @default(1)
-  token          String   @unique @default(cuid())
   createdAt      DateTime @default(now())
 
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
   event        Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  rsvp         Rsvp?
+  invitations  Invitation[]
 
+  @@unique([eventId, name])
   @@index([organizationId])
-  @@index([eventId])
+}
+
+// Undangan personal: satu tamu di satu acara.
+// Menggantikan gabungan event_guests + invitations pada usulan awal.
+// `token` dipakai untuk link publik /i/[token] sekaligus QR check-in.
+model Invitation {
+  id             String           @id @default(cuid())
+  organizationId String
+  eventId        String
+  guestId        String
+  groupId        String?
+  token          String           @unique
+  maxPax         Int              @default(1)
+  status         InvitationStatus @default(PENDING)
+  sentAt         DateTime?
+  openedAt       DateTime?
+  createdAt      DateTime         @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  event        Event        @relation(fields: [eventId], references: [id], onDelete: Restrict)
+  guest        Guest        @relation(fields: [guestId], references: [id], onDelete: Restrict)
+  group        GuestGroup?  @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  rsvp         Rsvp?
+  checkIns     CheckIn[]
+
+  @@unique([eventId, guestId])
+  @@index([organizationId])
+  @@index([guestId])
+  @@index([groupId])
 }
 
 model Rsvp {
-  id          String     @id @default(cuid())
-  guestId     String     @unique
-  status      RsvpStatus
-  paxCount    Int        @default(1)
-  message     String?
-  respondedAt DateTime   @default(now())
+  id           String     @id @default(cuid())
+  invitationId String     @unique
+  status       RsvpStatus
+  paxCount     Int        @default(1)
+  message      String?
+  respondedAt  DateTime   @default(now())
 
-  guest Guest @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+}
+
+// ─────────────────────────────────────────────────────────────
+// D. Check-in
+// ─────────────────────────────────────────────────────────────
+
+// Satu undangan boleh punya beberapa catatan check-in
+// (misalnya rombongan datang bertahap); total paxCount dibatasi di service.
+model CheckIn {
+  id             String   @id @default(cuid())
+  organizationId String
+  invitationId   String
+  checkedInById  String?
+  paxCount       Int      @default(1)
+  checkedInAt    DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  invitation   Invitation   @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+  checkedInBy  User?        @relation(fields: [checkedInById], references: [id], onDelete: SetNull)
+
+  @@index([organizationId])
+  @@index([invitationId])
 }

@@ -9,12 +9,53 @@
 * 🟢 You can import this file directly.
 */
 
-export const UserRole = {
-  OWNER: 'OWNER',
-  STAFF: 'STAFF'
+export const OrganizationStatus = {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED'
 } as const
 
-export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+export type OrganizationStatus = (typeof OrganizationStatus)[keyof typeof OrganizationStatus]
+
+
+export const MemberRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  EVENT_MANAGER: 'EVENT_MANAGER',
+  CHECKIN_STAFF: 'CHECKIN_STAFF',
+  VIEWER: 'VIEWER'
+} as const
+
+export type MemberRole = (typeof MemberRole)[keyof typeof MemberRole]
+
+
+export const EventType = {
+  WEDDING: 'WEDDING',
+  BIRTHDAY: 'BIRTHDAY',
+  CORPORATE: 'CORPORATE',
+  GATHERING: 'GATHERING',
+  OTHER: 'OTHER'
+} as const
+
+export type EventType = (typeof EventType)[keyof typeof EventType]
+
+
+export const EventStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus]
+
+
+export const InvitationStatus = {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  OPENED: 'OPENED'
+} as const
+
+export type InvitationStatus = (typeof InvitationStatus)[keyof typeof InvitationStatus]
 
 
 export const RsvpStatus = {

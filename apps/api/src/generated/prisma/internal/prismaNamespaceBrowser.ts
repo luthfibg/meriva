@@ -53,9 +53,13 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Organization: 'Organization',
   User: 'User',
+  OrganizationMember: 'OrganizationMember',
   Event: 'Event',
   Guest: 'Guest',
-  Rsvp: 'Rsvp'
+  GuestGroup: 'GuestGroup',
+  Invitation: 'Invitation',
+  Rsvp: 'Rsvp',
+  CheckIn: 'CheckIn'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,6 +82,8 @@ export const OrganizationScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
+  logoUrl: 'logoUrl',
+  status: 'status',
   createdAt: 'createdAt'
 } as const
 
@@ -86,15 +92,24 @@ export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[k
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  organizationId: 'organizationId',
   email: 'email',
   passwordHash: 'passwordHash',
   name: 'name',
-  role: 'role',
   createdAt: 'createdAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const OrganizationMemberScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt'
+} as const
+
+export type OrganizationMemberScalarFieldEnum = (typeof OrganizationMemberScalarFieldEnum)[keyof typeof OrganizationMemberScalarFieldEnum]
 
 
 export const EventScalarFieldEnum = {
@@ -102,7 +117,11 @@ export const EventScalarFieldEnum = {
   organizationId: 'organizationId',
   title: 'title',
   slug: 'slug',
+  type: 'type',
+  status: 'status',
   startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  timezone: 'timezone',
   venue: 'venue',
   description: 'description',
   createdAt: 'createdAt'
@@ -114,21 +133,46 @@ export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof Ev
 export const GuestScalarFieldEnum = {
   id: 'id',
   organizationId: 'organizationId',
-  eventId: 'eventId',
   name: 'name',
   phone: 'phone',
-  category: 'category',
-  maxPax: 'maxPax',
-  token: 'token',
+  email: 'email',
   createdAt: 'createdAt'
 } as const
 
 export type GuestScalarFieldEnum = (typeof GuestScalarFieldEnum)[keyof typeof GuestScalarFieldEnum]
 
 
+export const GuestGroupScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  eventId: 'eventId',
+  name: 'name',
+  createdAt: 'createdAt'
+} as const
+
+export type GuestGroupScalarFieldEnum = (typeof GuestGroupScalarFieldEnum)[keyof typeof GuestGroupScalarFieldEnum]
+
+
+export const InvitationScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  eventId: 'eventId',
+  guestId: 'guestId',
+  groupId: 'groupId',
+  token: 'token',
+  maxPax: 'maxPax',
+  status: 'status',
+  sentAt: 'sentAt',
+  openedAt: 'openedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum]
+
+
 export const RsvpScalarFieldEnum = {
   id: 'id',
-  guestId: 'guestId',
+  invitationId: 'invitationId',
   status: 'status',
   paxCount: 'paxCount',
   message: 'message',
@@ -136,6 +180,18 @@ export const RsvpScalarFieldEnum = {
 } as const
 
 export type RsvpScalarFieldEnum = (typeof RsvpScalarFieldEnum)[keyof typeof RsvpScalarFieldEnum]
+
+
+export const CheckInScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  invitationId: 'invitationId',
+  checkedInById: 'checkedInById',
+  paxCount: 'paxCount',
+  checkedInAt: 'checkedInAt'
+} as const
+
+export type CheckInScalarFieldEnum = (typeof CheckInScalarFieldEnum)[keyof typeof CheckInScalarFieldEnum]
 
 
 export const SortOrder = {

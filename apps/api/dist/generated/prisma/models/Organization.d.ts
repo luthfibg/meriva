@@ -1,4 +1,5 @@
 import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums.js";
 import type * as Prisma from "../internal/prismaNamespace.js";
 export type OrganizationModel = runtime.Types.Result.DefaultSelection<Prisma.$OrganizationPayload>;
 export type AggregateOrganization = {
@@ -10,18 +11,24 @@ export type OrganizationMinAggregateOutputType = {
     id: string | null;
     name: string | null;
     slug: string | null;
+    logoUrl: string | null;
+    status: $Enums.OrganizationStatus | null;
     createdAt: Date | null;
 };
 export type OrganizationMaxAggregateOutputType = {
     id: string | null;
     name: string | null;
     slug: string | null;
+    logoUrl: string | null;
+    status: $Enums.OrganizationStatus | null;
     createdAt: Date | null;
 };
 export type OrganizationCountAggregateOutputType = {
     id: number;
     name: number;
     slug: number;
+    logoUrl: number;
+    status: number;
     createdAt: number;
     _all: number;
 };
@@ -29,18 +36,24 @@ export type OrganizationMinAggregateInputType = {
     id?: true;
     name?: true;
     slug?: true;
+    logoUrl?: true;
+    status?: true;
     createdAt?: true;
 };
 export type OrganizationMaxAggregateInputType = {
     id?: true;
     name?: true;
     slug?: true;
+    logoUrl?: true;
+    status?: true;
     createdAt?: true;
 };
 export type OrganizationCountAggregateInputType = {
     id?: true;
     name?: true;
     slug?: true;
+    logoUrl?: true;
+    status?: true;
     createdAt?: true;
     _all?: true;
 };
@@ -72,6 +85,8 @@ export type OrganizationGroupByOutputType = {
     id: string;
     name: string;
     slug: string;
+    logoUrl: string | null;
+    status: $Enums.OrganizationStatus;
     createdAt: Date;
     _count: OrganizationCountAggregateOutputType | null;
     _min: OrganizationMinAggregateOutputType | null;
@@ -87,19 +102,29 @@ export type OrganizationWhereInput = {
     id?: Prisma.StringFilter<"Organization"> | string;
     name?: Prisma.StringFilter<"Organization"> | string;
     slug?: Prisma.StringFilter<"Organization"> | string;
+    logoUrl?: Prisma.StringNullableFilter<"Organization"> | string | null;
+    status?: Prisma.EnumOrganizationStatusFilter<"Organization"> | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFilter<"Organization"> | Date | string;
-    users?: Prisma.UserListRelationFilter;
+    members?: Prisma.OrganizationMemberListRelationFilter;
     events?: Prisma.EventListRelationFilter;
     guests?: Prisma.GuestListRelationFilter;
+    guestGroups?: Prisma.GuestGroupListRelationFilter;
+    invitations?: Prisma.InvitationListRelationFilter;
+    checkIns?: Prisma.CheckInListRelationFilter;
 };
 export type OrganizationOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     slug?: Prisma.SortOrder;
+    logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
+    status?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
-    users?: Prisma.UserOrderByRelationAggregateInput;
+    members?: Prisma.OrganizationMemberOrderByRelationAggregateInput;
     events?: Prisma.EventOrderByRelationAggregateInput;
     guests?: Prisma.GuestOrderByRelationAggregateInput;
+    guestGroups?: Prisma.GuestGroupOrderByRelationAggregateInput;
+    invitations?: Prisma.InvitationOrderByRelationAggregateInput;
+    checkIns?: Prisma.CheckInOrderByRelationAggregateInput;
 };
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -108,15 +133,22 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
     OR?: Prisma.OrganizationWhereInput[];
     NOT?: Prisma.OrganizationWhereInput | Prisma.OrganizationWhereInput[];
     name?: Prisma.StringFilter<"Organization"> | string;
+    logoUrl?: Prisma.StringNullableFilter<"Organization"> | string | null;
+    status?: Prisma.EnumOrganizationStatusFilter<"Organization"> | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFilter<"Organization"> | Date | string;
-    users?: Prisma.UserListRelationFilter;
+    members?: Prisma.OrganizationMemberListRelationFilter;
     events?: Prisma.EventListRelationFilter;
     guests?: Prisma.GuestListRelationFilter;
+    guestGroups?: Prisma.GuestGroupListRelationFilter;
+    invitations?: Prisma.InvitationListRelationFilter;
+    checkIns?: Prisma.CheckInListRelationFilter;
 }, "id" | "slug">;
 export type OrganizationOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     slug?: Prisma.SortOrder;
+    logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
+    status?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     _count?: Prisma.OrganizationCountOrderByAggregateInput;
     _max?: Prisma.OrganizationMaxOrderByAggregateInput;
@@ -129,78 +161,112 @@ export type OrganizationScalarWhereWithAggregatesInput = {
     id?: Prisma.StringWithAggregatesFilter<"Organization"> | string;
     name?: Prisma.StringWithAggregatesFilter<"Organization"> | string;
     slug?: Prisma.StringWithAggregatesFilter<"Organization"> | string;
+    logoUrl?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null;
+    status?: Prisma.EnumOrganizationStatusWithAggregatesFilter<"Organization"> | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"Organization"> | Date | string;
 };
 export type OrganizationCreateInput = {
     id?: string;
     name: string;
     slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
     createdAt?: Date | string;
-    users?: Prisma.UserCreateNestedManyWithoutOrganizationInput;
+    members?: Prisma.OrganizationMemberCreateNestedManyWithoutOrganizationInput;
     events?: Prisma.EventCreateNestedManyWithoutOrganizationInput;
     guests?: Prisma.GuestCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInCreateNestedManyWithoutOrganizationInput;
 };
 export type OrganizationUncheckedCreateInput = {
     id?: string;
     name: string;
     slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
     createdAt?: Date | string;
-    users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput;
+    members?: Prisma.OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput;
     events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizationInput;
     guests?: Prisma.GuestUncheckedCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupUncheckedCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutOrganizationInput;
 };
 export type OrganizationUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput;
+    members?: Prisma.OrganizationMemberUpdateManyWithoutOrganizationNestedInput;
     events?: Prisma.EventUpdateManyWithoutOrganizationNestedInput;
     guests?: Prisma.GuestUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUpdateManyWithoutOrganizationNestedInput;
 };
 export type OrganizationUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput;
+    members?: Prisma.OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput;
     events?: Prisma.EventUncheckedUpdateManyWithoutOrganizationNestedInput;
     guests?: Prisma.GuestUncheckedUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUncheckedUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutOrganizationNestedInput;
 };
 export type OrganizationCreateManyInput = {
     id?: string;
     name: string;
     slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
     createdAt?: Date | string;
 };
 export type OrganizationUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type OrganizationUncheckedUpdateManyInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 export type OrganizationCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     slug?: Prisma.SortOrder;
+    logoUrl?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
 };
 export type OrganizationMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     slug?: Prisma.SortOrder;
+    logoUrl?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
 };
 export type OrganizationMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     slug?: Prisma.SortOrder;
+    logoUrl?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
 };
 export type OrganizationScalarRelationFilter = {
@@ -210,20 +276,26 @@ export type OrganizationScalarRelationFilter = {
 export type StringFieldUpdateOperationsInput = {
     set?: string;
 };
+export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null;
+};
+export type EnumOrganizationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.OrganizationStatus;
+};
 export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string;
 };
-export type OrganizationCreateNestedOneWithoutUsersInput = {
-    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>;
-    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutUsersInput;
+export type OrganizationCreateNestedOneWithoutMembersInput = {
+    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutMembersInput, Prisma.OrganizationUncheckedCreateWithoutMembersInput>;
+    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutMembersInput;
     connect?: Prisma.OrganizationWhereUniqueInput;
 };
-export type OrganizationUpdateOneRequiredWithoutUsersNestedInput = {
-    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>;
-    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutUsersInput;
-    upsert?: Prisma.OrganizationUpsertWithoutUsersInput;
+export type OrganizationUpdateOneRequiredWithoutMembersNestedInput = {
+    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutMembersInput, Prisma.OrganizationUncheckedCreateWithoutMembersInput>;
+    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutMembersInput;
+    upsert?: Prisma.OrganizationUpsertWithoutMembersInput;
     connect?: Prisma.OrganizationWhereUniqueInput;
-    update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutUsersInput, Prisma.OrganizationUpdateWithoutUsersInput>, Prisma.OrganizationUncheckedUpdateWithoutUsersInput>;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutMembersInput, Prisma.OrganizationUpdateWithoutMembersInput>, Prisma.OrganizationUncheckedUpdateWithoutMembersInput>;
 };
 export type OrganizationCreateNestedOneWithoutEventsInput = {
     create?: Prisma.XOR<Prisma.OrganizationCreateWithoutEventsInput, Prisma.OrganizationUncheckedCreateWithoutEventsInput>;
@@ -249,66 +321,132 @@ export type OrganizationUpdateOneRequiredWithoutGuestsNestedInput = {
     connect?: Prisma.OrganizationWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutGuestsInput, Prisma.OrganizationUpdateWithoutGuestsInput>, Prisma.OrganizationUncheckedUpdateWithoutGuestsInput>;
 };
-export type OrganizationCreateWithoutUsersInput = {
+export type OrganizationCreateNestedOneWithoutGuestGroupsInput = {
+    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutGuestGroupsInput, Prisma.OrganizationUncheckedCreateWithoutGuestGroupsInput>;
+    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutGuestGroupsInput;
+    connect?: Prisma.OrganizationWhereUniqueInput;
+};
+export type OrganizationUpdateOneRequiredWithoutGuestGroupsNestedInput = {
+    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutGuestGroupsInput, Prisma.OrganizationUncheckedCreateWithoutGuestGroupsInput>;
+    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutGuestGroupsInput;
+    upsert?: Prisma.OrganizationUpsertWithoutGuestGroupsInput;
+    connect?: Prisma.OrganizationWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutGuestGroupsInput, Prisma.OrganizationUpdateWithoutGuestGroupsInput>, Prisma.OrganizationUncheckedUpdateWithoutGuestGroupsInput>;
+};
+export type OrganizationCreateNestedOneWithoutInvitationsInput = {
+    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutInvitationsInput, Prisma.OrganizationUncheckedCreateWithoutInvitationsInput>;
+    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutInvitationsInput;
+    connect?: Prisma.OrganizationWhereUniqueInput;
+};
+export type OrganizationUpdateOneRequiredWithoutInvitationsNestedInput = {
+    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutInvitationsInput, Prisma.OrganizationUncheckedCreateWithoutInvitationsInput>;
+    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutInvitationsInput;
+    upsert?: Prisma.OrganizationUpsertWithoutInvitationsInput;
+    connect?: Prisma.OrganizationWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutInvitationsInput, Prisma.OrganizationUpdateWithoutInvitationsInput>, Prisma.OrganizationUncheckedUpdateWithoutInvitationsInput>;
+};
+export type OrganizationCreateNestedOneWithoutCheckInsInput = {
+    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutCheckInsInput, Prisma.OrganizationUncheckedCreateWithoutCheckInsInput>;
+    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutCheckInsInput;
+    connect?: Prisma.OrganizationWhereUniqueInput;
+};
+export type OrganizationUpdateOneRequiredWithoutCheckInsNestedInput = {
+    create?: Prisma.XOR<Prisma.OrganizationCreateWithoutCheckInsInput, Prisma.OrganizationUncheckedCreateWithoutCheckInsInput>;
+    connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutCheckInsInput;
+    upsert?: Prisma.OrganizationUpsertWithoutCheckInsInput;
+    connect?: Prisma.OrganizationWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutCheckInsInput, Prisma.OrganizationUpdateWithoutCheckInsInput>, Prisma.OrganizationUncheckedUpdateWithoutCheckInsInput>;
+};
+export type OrganizationCreateWithoutMembersInput = {
     id?: string;
     name: string;
     slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
     createdAt?: Date | string;
     events?: Prisma.EventCreateNestedManyWithoutOrganizationInput;
     guests?: Prisma.GuestCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInCreateNestedManyWithoutOrganizationInput;
 };
-export type OrganizationUncheckedCreateWithoutUsersInput = {
+export type OrganizationUncheckedCreateWithoutMembersInput = {
     id?: string;
     name: string;
     slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
     createdAt?: Date | string;
     events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizationInput;
     guests?: Prisma.GuestUncheckedCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupUncheckedCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutOrganizationInput;
 };
-export type OrganizationCreateOrConnectWithoutUsersInput = {
+export type OrganizationCreateOrConnectWithoutMembersInput = {
     where: Prisma.OrganizationWhereUniqueInput;
-    create: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>;
+    create: Prisma.XOR<Prisma.OrganizationCreateWithoutMembersInput, Prisma.OrganizationUncheckedCreateWithoutMembersInput>;
 };
-export type OrganizationUpsertWithoutUsersInput = {
-    update: Prisma.XOR<Prisma.OrganizationUpdateWithoutUsersInput, Prisma.OrganizationUncheckedUpdateWithoutUsersInput>;
-    create: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>;
+export type OrganizationUpsertWithoutMembersInput = {
+    update: Prisma.XOR<Prisma.OrganizationUpdateWithoutMembersInput, Prisma.OrganizationUncheckedUpdateWithoutMembersInput>;
+    create: Prisma.XOR<Prisma.OrganizationCreateWithoutMembersInput, Prisma.OrganizationUncheckedCreateWithoutMembersInput>;
     where?: Prisma.OrganizationWhereInput;
 };
-export type OrganizationUpdateToOneWithWhereWithoutUsersInput = {
+export type OrganizationUpdateToOneWithWhereWithoutMembersInput = {
     where?: Prisma.OrganizationWhereInput;
-    data: Prisma.XOR<Prisma.OrganizationUpdateWithoutUsersInput, Prisma.OrganizationUncheckedUpdateWithoutUsersInput>;
+    data: Prisma.XOR<Prisma.OrganizationUpdateWithoutMembersInput, Prisma.OrganizationUncheckedUpdateWithoutMembersInput>;
 };
-export type OrganizationUpdateWithoutUsersInput = {
+export type OrganizationUpdateWithoutMembersInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     events?: Prisma.EventUpdateManyWithoutOrganizationNestedInput;
     guests?: Prisma.GuestUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUpdateManyWithoutOrganizationNestedInput;
 };
-export type OrganizationUncheckedUpdateWithoutUsersInput = {
+export type OrganizationUncheckedUpdateWithoutMembersInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     events?: Prisma.EventUncheckedUpdateManyWithoutOrganizationNestedInput;
     guests?: Prisma.GuestUncheckedUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUncheckedUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutOrganizationNestedInput;
 };
 export type OrganizationCreateWithoutEventsInput = {
     id?: string;
     name: string;
     slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
     createdAt?: Date | string;
-    users?: Prisma.UserCreateNestedManyWithoutOrganizationInput;
+    members?: Prisma.OrganizationMemberCreateNestedManyWithoutOrganizationInput;
     guests?: Prisma.GuestCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInCreateNestedManyWithoutOrganizationInput;
 };
 export type OrganizationUncheckedCreateWithoutEventsInput = {
     id?: string;
     name: string;
     slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
     createdAt?: Date | string;
-    users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput;
+    members?: Prisma.OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput;
     guests?: Prisma.GuestUncheckedCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupUncheckedCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutOrganizationInput;
 };
 export type OrganizationCreateOrConnectWithoutEventsInput = {
     where: Prisma.OrganizationWhereUniqueInput;
@@ -327,33 +465,53 @@ export type OrganizationUpdateWithoutEventsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput;
+    members?: Prisma.OrganizationMemberUpdateManyWithoutOrganizationNestedInput;
     guests?: Prisma.GuestUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUpdateManyWithoutOrganizationNestedInput;
 };
 export type OrganizationUncheckedUpdateWithoutEventsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput;
+    members?: Prisma.OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput;
     guests?: Prisma.GuestUncheckedUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUncheckedUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutOrganizationNestedInput;
 };
 export type OrganizationCreateWithoutGuestsInput = {
     id?: string;
     name: string;
     slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
     createdAt?: Date | string;
-    users?: Prisma.UserCreateNestedManyWithoutOrganizationInput;
+    members?: Prisma.OrganizationMemberCreateNestedManyWithoutOrganizationInput;
     events?: Prisma.EventCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInCreateNestedManyWithoutOrganizationInput;
 };
 export type OrganizationUncheckedCreateWithoutGuestsInput = {
     id?: string;
     name: string;
     slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
     createdAt?: Date | string;
-    users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput;
+    members?: Prisma.OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput;
     events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupUncheckedCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutOrganizationInput;
 };
 export type OrganizationCreateOrConnectWithoutGuestsInput = {
     where: Prisma.OrganizationWhereUniqueInput;
@@ -372,33 +530,244 @@ export type OrganizationUpdateWithoutGuestsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    users?: Prisma.UserUpdateManyWithoutOrganizationNestedInput;
+    members?: Prisma.OrganizationMemberUpdateManyWithoutOrganizationNestedInput;
     events?: Prisma.EventUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUpdateManyWithoutOrganizationNestedInput;
 };
 export type OrganizationUncheckedUpdateWithoutGuestsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput;
+    members?: Prisma.OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput;
     events?: Prisma.EventUncheckedUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUncheckedUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutOrganizationNestedInput;
+};
+export type OrganizationCreateWithoutGuestGroupsInput = {
+    id?: string;
+    name: string;
+    slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
+    createdAt?: Date | string;
+    members?: Prisma.OrganizationMemberCreateNestedManyWithoutOrganizationInput;
+    events?: Prisma.EventCreateNestedManyWithoutOrganizationInput;
+    guests?: Prisma.GuestCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInCreateNestedManyWithoutOrganizationInput;
+};
+export type OrganizationUncheckedCreateWithoutGuestGroupsInput = {
+    id?: string;
+    name: string;
+    slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
+    createdAt?: Date | string;
+    members?: Prisma.OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput;
+    events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizationInput;
+    guests?: Prisma.GuestUncheckedCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutOrganizationInput;
+};
+export type OrganizationCreateOrConnectWithoutGuestGroupsInput = {
+    where: Prisma.OrganizationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.OrganizationCreateWithoutGuestGroupsInput, Prisma.OrganizationUncheckedCreateWithoutGuestGroupsInput>;
+};
+export type OrganizationUpsertWithoutGuestGroupsInput = {
+    update: Prisma.XOR<Prisma.OrganizationUpdateWithoutGuestGroupsInput, Prisma.OrganizationUncheckedUpdateWithoutGuestGroupsInput>;
+    create: Prisma.XOR<Prisma.OrganizationCreateWithoutGuestGroupsInput, Prisma.OrganizationUncheckedCreateWithoutGuestGroupsInput>;
+    where?: Prisma.OrganizationWhereInput;
+};
+export type OrganizationUpdateToOneWithWhereWithoutGuestGroupsInput = {
+    where?: Prisma.OrganizationWhereInput;
+    data: Prisma.XOR<Prisma.OrganizationUpdateWithoutGuestGroupsInput, Prisma.OrganizationUncheckedUpdateWithoutGuestGroupsInput>;
+};
+export type OrganizationUpdateWithoutGuestGroupsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    members?: Prisma.OrganizationMemberUpdateManyWithoutOrganizationNestedInput;
+    events?: Prisma.EventUpdateManyWithoutOrganizationNestedInput;
+    guests?: Prisma.GuestUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUpdateManyWithoutOrganizationNestedInput;
+};
+export type OrganizationUncheckedUpdateWithoutGuestGroupsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    members?: Prisma.OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput;
+    events?: Prisma.EventUncheckedUpdateManyWithoutOrganizationNestedInput;
+    guests?: Prisma.GuestUncheckedUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutOrganizationNestedInput;
+};
+export type OrganizationCreateWithoutInvitationsInput = {
+    id?: string;
+    name: string;
+    slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
+    createdAt?: Date | string;
+    members?: Prisma.OrganizationMemberCreateNestedManyWithoutOrganizationInput;
+    events?: Prisma.EventCreateNestedManyWithoutOrganizationInput;
+    guests?: Prisma.GuestCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInCreateNestedManyWithoutOrganizationInput;
+};
+export type OrganizationUncheckedCreateWithoutInvitationsInput = {
+    id?: string;
+    name: string;
+    slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
+    createdAt?: Date | string;
+    members?: Prisma.OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput;
+    events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizationInput;
+    guests?: Prisma.GuestUncheckedCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupUncheckedCreateNestedManyWithoutOrganizationInput;
+    checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutOrganizationInput;
+};
+export type OrganizationCreateOrConnectWithoutInvitationsInput = {
+    where: Prisma.OrganizationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.OrganizationCreateWithoutInvitationsInput, Prisma.OrganizationUncheckedCreateWithoutInvitationsInput>;
+};
+export type OrganizationUpsertWithoutInvitationsInput = {
+    update: Prisma.XOR<Prisma.OrganizationUpdateWithoutInvitationsInput, Prisma.OrganizationUncheckedUpdateWithoutInvitationsInput>;
+    create: Prisma.XOR<Prisma.OrganizationCreateWithoutInvitationsInput, Prisma.OrganizationUncheckedCreateWithoutInvitationsInput>;
+    where?: Prisma.OrganizationWhereInput;
+};
+export type OrganizationUpdateToOneWithWhereWithoutInvitationsInput = {
+    where?: Prisma.OrganizationWhereInput;
+    data: Prisma.XOR<Prisma.OrganizationUpdateWithoutInvitationsInput, Prisma.OrganizationUncheckedUpdateWithoutInvitationsInput>;
+};
+export type OrganizationUpdateWithoutInvitationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    members?: Prisma.OrganizationMemberUpdateManyWithoutOrganizationNestedInput;
+    events?: Prisma.EventUpdateManyWithoutOrganizationNestedInput;
+    guests?: Prisma.GuestUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUpdateManyWithoutOrganizationNestedInput;
+};
+export type OrganizationUncheckedUpdateWithoutInvitationsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    members?: Prisma.OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput;
+    events?: Prisma.EventUncheckedUpdateManyWithoutOrganizationNestedInput;
+    guests?: Prisma.GuestUncheckedUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUncheckedUpdateManyWithoutOrganizationNestedInput;
+    checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutOrganizationNestedInput;
+};
+export type OrganizationCreateWithoutCheckInsInput = {
+    id?: string;
+    name: string;
+    slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
+    createdAt?: Date | string;
+    members?: Prisma.OrganizationMemberCreateNestedManyWithoutOrganizationInput;
+    events?: Prisma.EventCreateNestedManyWithoutOrganizationInput;
+    guests?: Prisma.GuestCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput;
+};
+export type OrganizationUncheckedCreateWithoutCheckInsInput = {
+    id?: string;
+    name: string;
+    slug: string;
+    logoUrl?: string | null;
+    status?: $Enums.OrganizationStatus;
+    createdAt?: Date | string;
+    members?: Prisma.OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput;
+    events?: Prisma.EventUncheckedCreateNestedManyWithoutOrganizationInput;
+    guests?: Prisma.GuestUncheckedCreateNestedManyWithoutOrganizationInput;
+    guestGroups?: Prisma.GuestGroupUncheckedCreateNestedManyWithoutOrganizationInput;
+    invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput;
+};
+export type OrganizationCreateOrConnectWithoutCheckInsInput = {
+    where: Prisma.OrganizationWhereUniqueInput;
+    create: Prisma.XOR<Prisma.OrganizationCreateWithoutCheckInsInput, Prisma.OrganizationUncheckedCreateWithoutCheckInsInput>;
+};
+export type OrganizationUpsertWithoutCheckInsInput = {
+    update: Prisma.XOR<Prisma.OrganizationUpdateWithoutCheckInsInput, Prisma.OrganizationUncheckedUpdateWithoutCheckInsInput>;
+    create: Prisma.XOR<Prisma.OrganizationCreateWithoutCheckInsInput, Prisma.OrganizationUncheckedCreateWithoutCheckInsInput>;
+    where?: Prisma.OrganizationWhereInput;
+};
+export type OrganizationUpdateToOneWithWhereWithoutCheckInsInput = {
+    where?: Prisma.OrganizationWhereInput;
+    data: Prisma.XOR<Prisma.OrganizationUpdateWithoutCheckInsInput, Prisma.OrganizationUncheckedUpdateWithoutCheckInsInput>;
+};
+export type OrganizationUpdateWithoutCheckInsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    members?: Prisma.OrganizationMemberUpdateManyWithoutOrganizationNestedInput;
+    events?: Prisma.EventUpdateManyWithoutOrganizationNestedInput;
+    guests?: Prisma.GuestUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput;
+};
+export type OrganizationUncheckedUpdateWithoutCheckInsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    slug?: Prisma.StringFieldUpdateOperationsInput | string;
+    logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    members?: Prisma.OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput;
+    events?: Prisma.EventUncheckedUpdateManyWithoutOrganizationNestedInput;
+    guests?: Prisma.GuestUncheckedUpdateManyWithoutOrganizationNestedInput;
+    guestGroups?: Prisma.GuestGroupUncheckedUpdateManyWithoutOrganizationNestedInput;
+    invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput;
 };
 export type OrganizationCountOutputType = {
-    users: number;
+    members: number;
     events: number;
     guests: number;
+    guestGroups: number;
+    invitations: number;
+    checkIns: number;
 };
 export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    users?: boolean | OrganizationCountOutputTypeCountUsersArgs;
+    members?: boolean | OrganizationCountOutputTypeCountMembersArgs;
     events?: boolean | OrganizationCountOutputTypeCountEventsArgs;
     guests?: boolean | OrganizationCountOutputTypeCountGuestsArgs;
+    guestGroups?: boolean | OrganizationCountOutputTypeCountGuestGroupsArgs;
+    invitations?: boolean | OrganizationCountOutputTypeCountInvitationsArgs;
+    checkIns?: boolean | OrganizationCountOutputTypeCountCheckInsArgs;
 };
 export type OrganizationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.OrganizationCountOutputTypeSelect<ExtArgs> | null;
 };
-export type OrganizationCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    where?: Prisma.UserWhereInput;
+export type OrganizationCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.OrganizationMemberWhereInput;
 };
 export type OrganizationCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.EventWhereInput;
@@ -406,39 +775,62 @@ export type OrganizationCountOutputTypeCountEventsArgs<ExtArgs extends runtime.T
 export type OrganizationCountOutputTypeCountGuestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.GuestWhereInput;
 };
+export type OrganizationCountOutputTypeCountGuestGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.GuestGroupWhereInput;
+};
+export type OrganizationCountOutputTypeCountInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.InvitationWhereInput;
+};
+export type OrganizationCountOutputTypeCountCheckInsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.CheckInWhereInput;
+};
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     name?: boolean;
     slug?: boolean;
+    logoUrl?: boolean;
+    status?: boolean;
     createdAt?: boolean;
-    users?: boolean | Prisma.Organization$usersArgs<ExtArgs>;
+    members?: boolean | Prisma.Organization$membersArgs<ExtArgs>;
     events?: boolean | Prisma.Organization$eventsArgs<ExtArgs>;
     guests?: boolean | Prisma.Organization$guestsArgs<ExtArgs>;
+    guestGroups?: boolean | Prisma.Organization$guestGroupsArgs<ExtArgs>;
+    invitations?: boolean | Prisma.Organization$invitationsArgs<ExtArgs>;
+    checkIns?: boolean | Prisma.Organization$checkInsArgs<ExtArgs>;
     _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["organization"]>;
 export type OrganizationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     name?: boolean;
     slug?: boolean;
+    logoUrl?: boolean;
+    status?: boolean;
     createdAt?: boolean;
 }, ExtArgs["result"]["organization"]>;
 export type OrganizationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     name?: boolean;
     slug?: boolean;
+    logoUrl?: boolean;
+    status?: boolean;
     createdAt?: boolean;
 }, ExtArgs["result"]["organization"]>;
 export type OrganizationSelectScalar = {
     id?: boolean;
     name?: boolean;
     slug?: boolean;
+    logoUrl?: boolean;
+    status?: boolean;
     createdAt?: boolean;
 };
-export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "createdAt", ExtArgs["result"]["organization"]>;
+export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "logoUrl" | "status" | "createdAt", ExtArgs["result"]["organization"]>;
 export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    users?: boolean | Prisma.Organization$usersArgs<ExtArgs>;
+    members?: boolean | Prisma.Organization$membersArgs<ExtArgs>;
     events?: boolean | Prisma.Organization$eventsArgs<ExtArgs>;
     guests?: boolean | Prisma.Organization$guestsArgs<ExtArgs>;
+    guestGroups?: boolean | Prisma.Organization$guestGroupsArgs<ExtArgs>;
+    invitations?: boolean | Prisma.Organization$invitationsArgs<ExtArgs>;
+    checkIns?: boolean | Prisma.Organization$checkInsArgs<ExtArgs>;
     _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
@@ -446,14 +838,19 @@ export type OrganizationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Organization";
     objects: {
-        users: Prisma.$UserPayload<ExtArgs>[];
+        members: Prisma.$OrganizationMemberPayload<ExtArgs>[];
         events: Prisma.$EventPayload<ExtArgs>[];
         guests: Prisma.$GuestPayload<ExtArgs>[];
+        guestGroups: Prisma.$GuestGroupPayload<ExtArgs>[];
+        invitations: Prisma.$InvitationPayload<ExtArgs>[];
+        checkIns: Prisma.$CheckInPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
         name: string;
         slug: string;
+        logoUrl: string | null;
+        status: $Enums.OrganizationStatus;
         createdAt: Date;
     }, ExtArgs["result"]["organization"]>;
     composites: {};
@@ -507,9 +904,12 @@ export interface OrganizationDelegate<ExtArgs extends runtime.Types.Extensions.I
 }
 export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    users<T extends Prisma.Organization$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    members<T extends Prisma.Organization$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     events<T extends Prisma.Organization$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     guests<T extends Prisma.Organization$guestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$guestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    guestGroups<T extends Prisma.Organization$guestGroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$guestGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuestGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    invitations<T extends Prisma.Organization$invitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    checkIns<T extends Prisma.Organization$checkInsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$checkInsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CheckInPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -518,6 +918,8 @@ export interface OrganizationFieldRefs {
     readonly id: Prisma.FieldRef<"Organization", 'String'>;
     readonly name: Prisma.FieldRef<"Organization", 'String'>;
     readonly slug: Prisma.FieldRef<"Organization", 'String'>;
+    readonly logoUrl: Prisma.FieldRef<"Organization", 'String'>;
+    readonly status: Prisma.FieldRef<"Organization", 'OrganizationStatus'>;
     readonly createdAt: Prisma.FieldRef<"Organization", 'DateTime'>;
 }
 export type OrganizationFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -618,16 +1020,16 @@ export type OrganizationDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
     where?: Prisma.OrganizationWhereInput;
     limit?: number;
 };
-export type Organization$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    select?: Prisma.UserSelect<ExtArgs> | null;
-    omit?: Prisma.UserOmit<ExtArgs> | null;
-    include?: Prisma.UserInclude<ExtArgs> | null;
-    where?: Prisma.UserWhereInput;
-    orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
-    cursor?: Prisma.UserWhereUniqueInput;
+export type Organization$membersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.OrganizationMemberSelect<ExtArgs> | null;
+    omit?: Prisma.OrganizationMemberOmit<ExtArgs> | null;
+    include?: Prisma.OrganizationMemberInclude<ExtArgs> | null;
+    where?: Prisma.OrganizationMemberWhereInput;
+    orderBy?: Prisma.OrganizationMemberOrderByWithRelationInput | Prisma.OrganizationMemberOrderByWithRelationInput[];
+    cursor?: Prisma.OrganizationMemberWhereUniqueInput;
     take?: number;
     skip?: number;
-    distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[];
+    distinct?: Prisma.OrganizationMemberScalarFieldEnum | Prisma.OrganizationMemberScalarFieldEnum[];
 };
 export type Organization$eventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.EventSelect<ExtArgs> | null;
@@ -650,6 +1052,39 @@ export type Organization$guestsArgs<ExtArgs extends runtime.Types.Extensions.Int
     take?: number;
     skip?: number;
     distinct?: Prisma.GuestScalarFieldEnum | Prisma.GuestScalarFieldEnum[];
+};
+export type Organization$guestGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.GuestGroupSelect<ExtArgs> | null;
+    omit?: Prisma.GuestGroupOmit<ExtArgs> | null;
+    include?: Prisma.GuestGroupInclude<ExtArgs> | null;
+    where?: Prisma.GuestGroupWhereInput;
+    orderBy?: Prisma.GuestGroupOrderByWithRelationInput | Prisma.GuestGroupOrderByWithRelationInput[];
+    cursor?: Prisma.GuestGroupWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.GuestGroupScalarFieldEnum | Prisma.GuestGroupScalarFieldEnum[];
+};
+export type Organization$invitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.InvitationSelect<ExtArgs> | null;
+    omit?: Prisma.InvitationOmit<ExtArgs> | null;
+    include?: Prisma.InvitationInclude<ExtArgs> | null;
+    where?: Prisma.InvitationWhereInput;
+    orderBy?: Prisma.InvitationOrderByWithRelationInput | Prisma.InvitationOrderByWithRelationInput[];
+    cursor?: Prisma.InvitationWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.InvitationScalarFieldEnum | Prisma.InvitationScalarFieldEnum[];
+};
+export type Organization$checkInsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.CheckInSelect<ExtArgs> | null;
+    omit?: Prisma.CheckInOmit<ExtArgs> | null;
+    include?: Prisma.CheckInInclude<ExtArgs> | null;
+    where?: Prisma.CheckInWhereInput;
+    orderBy?: Prisma.CheckInOrderByWithRelationInput | Prisma.CheckInOrderByWithRelationInput[];
+    cursor?: Prisma.CheckInWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.CheckInScalarFieldEnum | Prisma.CheckInScalarFieldEnum[];
 };
 export type OrganizationDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.OrganizationSelect<ExtArgs> | null;

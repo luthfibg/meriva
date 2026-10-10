@@ -25,14 +25,14 @@ export declare class AuthController {
         };
     }>;
     me(req: any): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        role: import("../generated/prisma/enums.js").UserRole;
+        role: import("../generated/prisma/enums.js").MemberRole;
         organization: {
             id: string;
             name: string;
             slug: string;
         };
+        id: string;
+        name: string;
+        email: string;
     }>;
 }

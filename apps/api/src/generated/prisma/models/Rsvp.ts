@@ -36,7 +36,7 @@ export type RsvpSumAggregateOutputType = {
 
 export type RsvpMinAggregateOutputType = {
   id: string | null
-  guestId: string | null
+  invitationId: string | null
   status: $Enums.RsvpStatus | null
   paxCount: number | null
   message: string | null
@@ -45,7 +45,7 @@ export type RsvpMinAggregateOutputType = {
 
 export type RsvpMaxAggregateOutputType = {
   id: string | null
-  guestId: string | null
+  invitationId: string | null
   status: $Enums.RsvpStatus | null
   paxCount: number | null
   message: string | null
@@ -54,7 +54,7 @@ export type RsvpMaxAggregateOutputType = {
 
 export type RsvpCountAggregateOutputType = {
   id: number
-  guestId: number
+  invitationId: number
   status: number
   paxCount: number
   message: number
@@ -73,7 +73,7 @@ export type RsvpSumAggregateInputType = {
 
 export type RsvpMinAggregateInputType = {
   id?: true
-  guestId?: true
+  invitationId?: true
   status?: true
   paxCount?: true
   message?: true
@@ -82,7 +82,7 @@ export type RsvpMinAggregateInputType = {
 
 export type RsvpMaxAggregateInputType = {
   id?: true
-  guestId?: true
+  invitationId?: true
   status?: true
   paxCount?: true
   message?: true
@@ -91,7 +91,7 @@ export type RsvpMaxAggregateInputType = {
 
 export type RsvpCountAggregateInputType = {
   id?: true
-  guestId?: true
+  invitationId?: true
   status?: true
   paxCount?: true
   message?: true
@@ -187,7 +187,7 @@ export type RsvpGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type RsvpGroupByOutputType = {
   id: string
-  guestId: string
+  invitationId: string
   status: $Enums.RsvpStatus
   paxCount: number
   message: string | null
@@ -219,27 +219,27 @@ export type RsvpWhereInput = {
   OR?: Prisma.RsvpWhereInput[]
   NOT?: Prisma.RsvpWhereInput | Prisma.RsvpWhereInput[]
   id?: Prisma.StringFilter<"Rsvp"> | string
-  guestId?: Prisma.StringFilter<"Rsvp"> | string
+  invitationId?: Prisma.StringFilter<"Rsvp"> | string
   status?: Prisma.EnumRsvpStatusFilter<"Rsvp"> | $Enums.RsvpStatus
   paxCount?: Prisma.IntFilter<"Rsvp"> | number
   message?: Prisma.StringNullableFilter<"Rsvp"> | string | null
   respondedAt?: Prisma.DateTimeFilter<"Rsvp"> | Date | string
-  guest?: Prisma.XOR<Prisma.GuestScalarRelationFilter, Prisma.GuestWhereInput>
+  invitation?: Prisma.XOR<Prisma.InvitationScalarRelationFilter, Prisma.InvitationWhereInput>
 }
 
 export type RsvpOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  guestId?: Prisma.SortOrder
+  invitationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paxCount?: Prisma.SortOrder
   message?: Prisma.SortOrderInput | Prisma.SortOrder
   respondedAt?: Prisma.SortOrder
-  guest?: Prisma.GuestOrderByWithRelationInput
+  invitation?: Prisma.InvitationOrderByWithRelationInput
 }
 
 export type RsvpWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  guestId?: string
+  invitationId?: string
   AND?: Prisma.RsvpWhereInput | Prisma.RsvpWhereInput[]
   OR?: Prisma.RsvpWhereInput[]
   NOT?: Prisma.RsvpWhereInput | Prisma.RsvpWhereInput[]
@@ -247,12 +247,12 @@ export type RsvpWhereUniqueInput = Prisma.AtLeast<{
   paxCount?: Prisma.IntFilter<"Rsvp"> | number
   message?: Prisma.StringNullableFilter<"Rsvp"> | string | null
   respondedAt?: Prisma.DateTimeFilter<"Rsvp"> | Date | string
-  guest?: Prisma.XOR<Prisma.GuestScalarRelationFilter, Prisma.GuestWhereInput>
-}, "id" | "guestId">
+  invitation?: Prisma.XOR<Prisma.InvitationScalarRelationFilter, Prisma.InvitationWhereInput>
+}, "id" | "invitationId">
 
 export type RsvpOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  guestId?: Prisma.SortOrder
+  invitationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paxCount?: Prisma.SortOrder
   message?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -269,7 +269,7 @@ export type RsvpScalarWhereWithAggregatesInput = {
   OR?: Prisma.RsvpScalarWhereWithAggregatesInput[]
   NOT?: Prisma.RsvpScalarWhereWithAggregatesInput | Prisma.RsvpScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Rsvp"> | string
-  guestId?: Prisma.StringWithAggregatesFilter<"Rsvp"> | string
+  invitationId?: Prisma.StringWithAggregatesFilter<"Rsvp"> | string
   status?: Prisma.EnumRsvpStatusWithAggregatesFilter<"Rsvp"> | $Enums.RsvpStatus
   paxCount?: Prisma.IntWithAggregatesFilter<"Rsvp"> | number
   message?: Prisma.StringNullableWithAggregatesFilter<"Rsvp"> | string | null
@@ -282,12 +282,12 @@ export type RsvpCreateInput = {
   paxCount?: number
   message?: string | null
   respondedAt?: Date | string
-  guest: Prisma.GuestCreateNestedOneWithoutRsvpInput
+  invitation: Prisma.InvitationCreateNestedOneWithoutRsvpInput
 }
 
 export type RsvpUncheckedCreateInput = {
   id?: string
-  guestId: string
+  invitationId: string
   status: $Enums.RsvpStatus
   paxCount?: number
   message?: string | null
@@ -300,12 +300,12 @@ export type RsvpUpdateInput = {
   paxCount?: Prisma.IntFieldUpdateOperationsInput | number
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   respondedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  guest?: Prisma.GuestUpdateOneRequiredWithoutRsvpNestedInput
+  invitation?: Prisma.InvitationUpdateOneRequiredWithoutRsvpNestedInput
 }
 
 export type RsvpUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  guestId?: Prisma.StringFieldUpdateOperationsInput | string
+  invitationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRsvpStatusFieldUpdateOperationsInput | $Enums.RsvpStatus
   paxCount?: Prisma.IntFieldUpdateOperationsInput | number
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -314,7 +314,7 @@ export type RsvpUncheckedUpdateInput = {
 
 export type RsvpCreateManyInput = {
   id?: string
-  guestId: string
+  invitationId: string
   status: $Enums.RsvpStatus
   paxCount?: number
   message?: string | null
@@ -331,7 +331,7 @@ export type RsvpUpdateManyMutationInput = {
 
 export type RsvpUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  guestId?: Prisma.StringFieldUpdateOperationsInput | string
+  invitationId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRsvpStatusFieldUpdateOperationsInput | $Enums.RsvpStatus
   paxCount?: Prisma.IntFieldUpdateOperationsInput | number
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -345,7 +345,7 @@ export type RsvpNullableScalarRelationFilter = {
 
 export type RsvpCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  guestId?: Prisma.SortOrder
+  invitationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paxCount?: Prisma.SortOrder
   message?: Prisma.SortOrder
@@ -358,7 +358,7 @@ export type RsvpAvgOrderByAggregateInput = {
 
 export type RsvpMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  guestId?: Prisma.SortOrder
+  invitationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paxCount?: Prisma.SortOrder
   message?: Prisma.SortOrder
@@ -367,7 +367,7 @@ export type RsvpMaxOrderByAggregateInput = {
 
 export type RsvpMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  guestId?: Prisma.SortOrder
+  invitationId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paxCount?: Prisma.SortOrder
   message?: Prisma.SortOrder
@@ -378,43 +378,43 @@ export type RsvpSumOrderByAggregateInput = {
   paxCount?: Prisma.SortOrder
 }
 
-export type RsvpCreateNestedOneWithoutGuestInput = {
-  create?: Prisma.XOR<Prisma.RsvpCreateWithoutGuestInput, Prisma.RsvpUncheckedCreateWithoutGuestInput>
-  connectOrCreate?: Prisma.RsvpCreateOrConnectWithoutGuestInput
+export type RsvpCreateNestedOneWithoutInvitationInput = {
+  create?: Prisma.XOR<Prisma.RsvpCreateWithoutInvitationInput, Prisma.RsvpUncheckedCreateWithoutInvitationInput>
+  connectOrCreate?: Prisma.RsvpCreateOrConnectWithoutInvitationInput
   connect?: Prisma.RsvpWhereUniqueInput
 }
 
-export type RsvpUncheckedCreateNestedOneWithoutGuestInput = {
-  create?: Prisma.XOR<Prisma.RsvpCreateWithoutGuestInput, Prisma.RsvpUncheckedCreateWithoutGuestInput>
-  connectOrCreate?: Prisma.RsvpCreateOrConnectWithoutGuestInput
+export type RsvpUncheckedCreateNestedOneWithoutInvitationInput = {
+  create?: Prisma.XOR<Prisma.RsvpCreateWithoutInvitationInput, Prisma.RsvpUncheckedCreateWithoutInvitationInput>
+  connectOrCreate?: Prisma.RsvpCreateOrConnectWithoutInvitationInput
   connect?: Prisma.RsvpWhereUniqueInput
 }
 
-export type RsvpUpdateOneWithoutGuestNestedInput = {
-  create?: Prisma.XOR<Prisma.RsvpCreateWithoutGuestInput, Prisma.RsvpUncheckedCreateWithoutGuestInput>
-  connectOrCreate?: Prisma.RsvpCreateOrConnectWithoutGuestInput
-  upsert?: Prisma.RsvpUpsertWithoutGuestInput
+export type RsvpUpdateOneWithoutInvitationNestedInput = {
+  create?: Prisma.XOR<Prisma.RsvpCreateWithoutInvitationInput, Prisma.RsvpUncheckedCreateWithoutInvitationInput>
+  connectOrCreate?: Prisma.RsvpCreateOrConnectWithoutInvitationInput
+  upsert?: Prisma.RsvpUpsertWithoutInvitationInput
   disconnect?: Prisma.RsvpWhereInput | boolean
   delete?: Prisma.RsvpWhereInput | boolean
   connect?: Prisma.RsvpWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.RsvpUpdateToOneWithWhereWithoutGuestInput, Prisma.RsvpUpdateWithoutGuestInput>, Prisma.RsvpUncheckedUpdateWithoutGuestInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RsvpUpdateToOneWithWhereWithoutInvitationInput, Prisma.RsvpUpdateWithoutInvitationInput>, Prisma.RsvpUncheckedUpdateWithoutInvitationInput>
 }
 
-export type RsvpUncheckedUpdateOneWithoutGuestNestedInput = {
-  create?: Prisma.XOR<Prisma.RsvpCreateWithoutGuestInput, Prisma.RsvpUncheckedCreateWithoutGuestInput>
-  connectOrCreate?: Prisma.RsvpCreateOrConnectWithoutGuestInput
-  upsert?: Prisma.RsvpUpsertWithoutGuestInput
+export type RsvpUncheckedUpdateOneWithoutInvitationNestedInput = {
+  create?: Prisma.XOR<Prisma.RsvpCreateWithoutInvitationInput, Prisma.RsvpUncheckedCreateWithoutInvitationInput>
+  connectOrCreate?: Prisma.RsvpCreateOrConnectWithoutInvitationInput
+  upsert?: Prisma.RsvpUpsertWithoutInvitationInput
   disconnect?: Prisma.RsvpWhereInput | boolean
   delete?: Prisma.RsvpWhereInput | boolean
   connect?: Prisma.RsvpWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.RsvpUpdateToOneWithWhereWithoutGuestInput, Prisma.RsvpUpdateWithoutGuestInput>, Prisma.RsvpUncheckedUpdateWithoutGuestInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RsvpUpdateToOneWithWhereWithoutInvitationInput, Prisma.RsvpUpdateWithoutInvitationInput>, Prisma.RsvpUncheckedUpdateWithoutInvitationInput>
 }
 
 export type EnumRsvpStatusFieldUpdateOperationsInput = {
   set?: $Enums.RsvpStatus
 }
 
-export type RsvpCreateWithoutGuestInput = {
+export type RsvpCreateWithoutInvitationInput = {
   id?: string
   status: $Enums.RsvpStatus
   paxCount?: number
@@ -422,7 +422,7 @@ export type RsvpCreateWithoutGuestInput = {
   respondedAt?: Date | string
 }
 
-export type RsvpUncheckedCreateWithoutGuestInput = {
+export type RsvpUncheckedCreateWithoutInvitationInput = {
   id?: string
   status: $Enums.RsvpStatus
   paxCount?: number
@@ -430,23 +430,23 @@ export type RsvpUncheckedCreateWithoutGuestInput = {
   respondedAt?: Date | string
 }
 
-export type RsvpCreateOrConnectWithoutGuestInput = {
+export type RsvpCreateOrConnectWithoutInvitationInput = {
   where: Prisma.RsvpWhereUniqueInput
-  create: Prisma.XOR<Prisma.RsvpCreateWithoutGuestInput, Prisma.RsvpUncheckedCreateWithoutGuestInput>
+  create: Prisma.XOR<Prisma.RsvpCreateWithoutInvitationInput, Prisma.RsvpUncheckedCreateWithoutInvitationInput>
 }
 
-export type RsvpUpsertWithoutGuestInput = {
-  update: Prisma.XOR<Prisma.RsvpUpdateWithoutGuestInput, Prisma.RsvpUncheckedUpdateWithoutGuestInput>
-  create: Prisma.XOR<Prisma.RsvpCreateWithoutGuestInput, Prisma.RsvpUncheckedCreateWithoutGuestInput>
+export type RsvpUpsertWithoutInvitationInput = {
+  update: Prisma.XOR<Prisma.RsvpUpdateWithoutInvitationInput, Prisma.RsvpUncheckedUpdateWithoutInvitationInput>
+  create: Prisma.XOR<Prisma.RsvpCreateWithoutInvitationInput, Prisma.RsvpUncheckedCreateWithoutInvitationInput>
   where?: Prisma.RsvpWhereInput
 }
 
-export type RsvpUpdateToOneWithWhereWithoutGuestInput = {
+export type RsvpUpdateToOneWithWhereWithoutInvitationInput = {
   where?: Prisma.RsvpWhereInput
-  data: Prisma.XOR<Prisma.RsvpUpdateWithoutGuestInput, Prisma.RsvpUncheckedUpdateWithoutGuestInput>
+  data: Prisma.XOR<Prisma.RsvpUpdateWithoutInvitationInput, Prisma.RsvpUncheckedUpdateWithoutInvitationInput>
 }
 
-export type RsvpUpdateWithoutGuestInput = {
+export type RsvpUpdateWithoutInvitationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRsvpStatusFieldUpdateOperationsInput | $Enums.RsvpStatus
   paxCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -454,7 +454,7 @@ export type RsvpUpdateWithoutGuestInput = {
   respondedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type RsvpUncheckedUpdateWithoutGuestInput = {
+export type RsvpUncheckedUpdateWithoutInvitationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumRsvpStatusFieldUpdateOperationsInput | $Enums.RsvpStatus
   paxCount?: Prisma.IntFieldUpdateOperationsInput | number
@@ -466,62 +466,62 @@ export type RsvpUncheckedUpdateWithoutGuestInput = {
 
 export type RsvpSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  guestId?: boolean
+  invitationId?: boolean
   status?: boolean
   paxCount?: boolean
   message?: boolean
   respondedAt?: boolean
-  guest?: boolean | Prisma.GuestDefaultArgs<ExtArgs>
+  invitation?: boolean | Prisma.InvitationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rsvp"]>
 
 export type RsvpSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  guestId?: boolean
+  invitationId?: boolean
   status?: boolean
   paxCount?: boolean
   message?: boolean
   respondedAt?: boolean
-  guest?: boolean | Prisma.GuestDefaultArgs<ExtArgs>
+  invitation?: boolean | Prisma.InvitationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rsvp"]>
 
 export type RsvpSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  guestId?: boolean
+  invitationId?: boolean
   status?: boolean
   paxCount?: boolean
   message?: boolean
   respondedAt?: boolean
-  guest?: boolean | Prisma.GuestDefaultArgs<ExtArgs>
+  invitation?: boolean | Prisma.InvitationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rsvp"]>
 
 export type RsvpSelectScalar = {
   id?: boolean
-  guestId?: boolean
+  invitationId?: boolean
   status?: boolean
   paxCount?: boolean
   message?: boolean
   respondedAt?: boolean
 }
 
-export type RsvpOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "guestId" | "status" | "paxCount" | "message" | "respondedAt", ExtArgs["result"]["rsvp"]>
+export type RsvpOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invitationId" | "status" | "paxCount" | "message" | "respondedAt", ExtArgs["result"]["rsvp"]>
 export type RsvpInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  guest?: boolean | Prisma.GuestDefaultArgs<ExtArgs>
+  invitation?: boolean | Prisma.InvitationDefaultArgs<ExtArgs>
 }
 export type RsvpIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  guest?: boolean | Prisma.GuestDefaultArgs<ExtArgs>
+  invitation?: boolean | Prisma.InvitationDefaultArgs<ExtArgs>
 }
 export type RsvpIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  guest?: boolean | Prisma.GuestDefaultArgs<ExtArgs>
+  invitation?: boolean | Prisma.InvitationDefaultArgs<ExtArgs>
 }
 
 export type $RsvpPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Rsvp"
   objects: {
-    guest: Prisma.$GuestPayload<ExtArgs>
+    invitation: Prisma.$InvitationPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    guestId: string
+    invitationId: string
     status: $Enums.RsvpStatus
     paxCount: number
     message: string | null
@@ -920,7 +920,7 @@ readonly fields: RsvpFieldRefs;
  */
 export interface Prisma__RsvpClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  guest<T extends Prisma.GuestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuestDefaultArgs<ExtArgs>>): Prisma.Prisma__GuestClient<runtime.Types.Result.GetResult<Prisma.$GuestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  invitation<T extends Prisma.InvitationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvitationDefaultArgs<ExtArgs>>): Prisma.Prisma__InvitationClient<runtime.Types.Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -951,7 +951,7 @@ export interface Prisma__RsvpClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface RsvpFieldRefs {
   readonly id: Prisma.FieldRef<"Rsvp", 'String'>
-  readonly guestId: Prisma.FieldRef<"Rsvp", 'String'>
+  readonly invitationId: Prisma.FieldRef<"Rsvp", 'String'>
   readonly status: Prisma.FieldRef<"Rsvp", 'RsvpStatus'>
   readonly paxCount: Prisma.FieldRef<"Rsvp", 'Int'>
   readonly message: Prisma.FieldRef<"Rsvp", 'String'>

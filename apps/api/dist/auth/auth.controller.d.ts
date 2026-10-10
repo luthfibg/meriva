@@ -26,8 +26,8 @@ export declare class AuthController {
     }>;
     me(req: any): Promise<{
         id: string;
-        email: string;
         name: string;
+        email: string;
         role: import("../generated/prisma/enums.js").UserRole;
         organization: {
             id: string;

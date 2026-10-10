@@ -30,8 +30,8 @@ export declare class AuthService {
     }>;
     me(userId: string): Promise<{
         id: string;
-        email: string;
         name: string;
+        email: string;
         role: import("../generated/prisma/enums.js").UserRole;
         organization: {
             id: string;

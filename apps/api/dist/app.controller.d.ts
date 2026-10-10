@@ -1,4 +1,4 @@
-import { PrismaService } from '../prisma/prisma.service.js';
+import { PrismaService } from './prisma/prisma.service.js';
 export declare class AppController {
     private readonly prisma;
     constructor(prisma: PrismaService);
